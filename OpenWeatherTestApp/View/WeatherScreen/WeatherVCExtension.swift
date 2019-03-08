@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension WeatherViewController {
+extension WeatherViewController: WeatherViewModelDelegate {
     
     // MARK: - UI Configuration
     func makeButtomView() {
@@ -32,6 +32,7 @@ extension WeatherViewController {
         addNewCityButton.setImage(addNewImage, for: .normal)
         addNewCityButton.tintColor = .white
         addNewCityButton.translatesAutoresizingMaskIntoConstraints = false
+        addNewCityButton.addTarget(self, action: #selector(reloadCollectionView), for: .touchUpInside)
         
         buttomView.addSubview(addNewCityButton)
         
@@ -55,7 +56,7 @@ extension WeatherViewController {
         
         view.addSubview(swipeCollectionView)
         
-        swipeCollectionView.register(CityCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        swipeCollectionView.register(WeatherCVCell.self, forCellWithReuseIdentifier: cellId)
         
         swipeCollectionView.delegate = self
         swipeCollectionView.dataSource = self
@@ -67,4 +68,15 @@ extension WeatherViewController {
             swipeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)]
         NSLayoutConstraint.activate(swipeCollectionViewConstraints)
     }
+    
+    // MARK: - Transition method
+    @objc func reloadCollectionView() {
+        swipeCollectionView.reloadData()
+    }
+    
+    // MARK: - ViewModel Delegate method
+    func reloadView() {
+        swipeCollectionView.reloadData()
+    }
+    
 }

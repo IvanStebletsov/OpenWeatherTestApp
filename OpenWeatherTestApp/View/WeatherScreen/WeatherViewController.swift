@@ -9,22 +9,25 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-
+    
     // MARK: - Properties
     let cellId = "cellId"
-    var weatherViewModel = WeatherViewModel()
+    var weatherViewModel: WeatherViewModel!
     
     // MARK: - UI elements
     var buttomView: UIView!
     var addNewCityButton: UIButton!
     var swipeCollectionView: UICollectionView!
     
+    // MARK: - Life cicle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         makeButtomView()
         makeAddNewCityButton()
         makeSwipeCollectionView()
+        
+        weatherViewModel.delegate = self
+        weatherViewModel.fetchData()
     }
 }
-

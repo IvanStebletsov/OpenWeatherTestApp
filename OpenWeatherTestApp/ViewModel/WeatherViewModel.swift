@@ -8,6 +8,27 @@
 
 import Foundation
 
+protocol WeatherViewModelDelegate {
+    func reloadView()
+}
+
 class WeatherViewModel {
-    let cities = [1, 2, 3, 4, 5]
+    
+    // MARK: - Properties
+    var networkManager: Networking!
+    var delegate: WeatherViewModelDelegate?
+    var citiesIds = [524901,703448,2643743]
+    var cities = [Weather]() {
+        didSet {  DispatchQueue.main.async { self.delegate?.reloadView() } }
+    }
+    
+    // MARK: - Initialization
+    init(networkManager: Networking) {
+        self.networkManager = networkManager
+    }
+    
+    // MARK: - Properties
+    func fetchData() {
+        networkManager.fetchWeatherDataFor(citiesIds) { [unowned self] in self.cities = $0 }
+    }
 }

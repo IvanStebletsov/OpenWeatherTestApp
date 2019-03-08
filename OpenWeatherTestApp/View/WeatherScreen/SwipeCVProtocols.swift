@@ -1,5 +1,5 @@
 //
-//  SwipeCollectionViewProtocols.swift
+//  SwipeCVProtocols.swift
 //  OpenWeatherTestApp
 //
 //  Created by Ivan Stebletsov on 05/03/2019.
@@ -15,10 +15,12 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CityCollectionViewCell
-
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! WeatherCVCell
+        cell.weatherForecastTVCViewModel = WeatherForecastTVCViewModel(forecast: weatherViewModel.cities[indexPath.row].weatherForecastOnDay)
         
-        return cell
+        let weather = weatherViewModel.cities[indexPath.row]
+        
+        return cell.madeWithModelOf(weather)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
