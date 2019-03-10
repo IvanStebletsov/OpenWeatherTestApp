@@ -168,12 +168,14 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
     }
     
     func showHideNoDataForDisplayImageView() {
-        if self.weatherViewModel.cities.count == 0 {
-            self.noDataForDisplayImageView.isHidden = false
-            self.someTroubleDescriptionLabel.isHidden = false
+        if weatherViewModel.cities.count == 0 {
+            noDataForDisplayImageView.isHidden = false
+            someTroubleDescriptionLabel.isHidden = false
+            activityIndicatorBackgroundView.isHidden = true
+            activityIndicatorView.isHidden = true
         } else {
-            self.noDataForDisplayImageView.isHidden = true
-            self.someTroubleDescriptionLabel.isHidden = true
+            noDataForDisplayImageView.isHidden = true
+            someTroubleDescriptionLabel.isHidden = true
         }
     }
     
