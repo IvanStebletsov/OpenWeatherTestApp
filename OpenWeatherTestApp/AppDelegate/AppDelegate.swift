@@ -14,7 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Properties
     var window: UIWindow?
-    private let networkManager = NetworkManager()
+    var isCitiesPredefined = false
+    private let networkService = NetworkService()
+    private let dataSaverService = DataSaverService()
+    
+    private let coreDataStorage = CoreDataStorage(modelName: "OpenWeatherTestApp")
 
     // MARK: - Application lifecicle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -23,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
-        let weatherViewModel = WeatherViewModel(networkManager: networkManager)
+        let weatherViewModel = WeatherViewModel(networkService: networkService, dataSaverService: dataSaverService)
+        weatherViewModel.citiesIds = setupPredefinedCities()
         
         let weatherViewController = WeatherViewController()
         weatherViewController.weatherViewModel = weatherViewModel
@@ -42,4 +47,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) { }
 
     func applicationWillTerminate(_ application: UIApplication) { }
+    
+    
+    // Setup predifined cities
+    func setupPredefinedCities() -> [Int] {
+        isCitiesPredefined = UserDefaults.standard.bool(forKey: "isCitiesPredefined")
+        if !isCitiesPredefined {
+            isCitiesPredefined = true
+            UserDefaults.standard.set(isCitiesPredefined, forKey: "isCitiesPredefined")
+            dataSaverService.savePredefinedCities()
+            return dataSaverService.loadPredefinedCities()
+        } else {
+            return dataSaverService.loadSavedCities()
+        }
+    }
 }

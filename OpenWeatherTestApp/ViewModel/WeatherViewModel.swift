@@ -8,27 +8,45 @@
 
 import Foundation
 
-protocol WeatherViewModelDelegate {
-    func reloadView()
-}
-
 class WeatherViewModel {
     
     // MARK: - Properties
-    var networkManager: Networking!
-    var delegate: WeatherViewModelDelegate?
-    var citiesIds = [524901,703448,2643743]
-    var cities = [Weather]() {
-        didSet {  DispatchQueue.main.async { self.delegate?.reloadView() } }
-    }
+    var networkService: Networking!
+    var dataSaverService: DataSaverService!
+    var addNewCityViewController: AddNewCityViewController!
+    var editSavedCitiesViewController: EditSavedCitiesViewController!
+    var citiesIds = [Int]()
+    var cities = [Weather]()
     
     // MARK: - Initialization
-    init(networkManager: Networking) {
-        self.networkManager = networkManager
+    init(networkService: Networking, dataSaverService: DataSaverService) {
+        self.networkService = networkService
+        self.dataSaverService = dataSaverService
     }
     
-    // MARK: - Properties
-    func fetchData() {
-        networkManager.fetchWeatherDataFor(citiesIds) { [unowned self] in self.cities = $0 }
+    // MARK: - Methods
+    func fetchData(completion: @escaping (() -> ())) {
+        networkService.fetchWeatherDataFor(citiesIds) { [unowned self] in
+            self.cities = $0
+            completion()
+        }
+    }
+    
+    func checkForNewCities() {
+        let newCities = dataSaverService.loadSavedCities()
+        if citiesIds != newCities { citiesIds = newCities }
+    }
+    
+    func initAddNewCityViewController() {
+        addNewCityViewController = AddNewCityViewController()
+        addNewCityViewController.addNewCityViewModel = AddNewCityViewModel(networkService: networkService, dataSaverService: dataSaverService)
+        addNewCityViewController.modalPresentationStyle = .overCurrentContext
+    }
+    
+    func initEditSavedCitiesViewController() {
+        editSavedCitiesViewController = EditSavedCitiesViewController()
+        editSavedCitiesViewController.editSavedCitiesViewModel = EditSavedCitiesViewModel(networkService: networkService, dataSaverService: dataSaverService)
+        editSavedCitiesViewController.editSavedCitiesViewModel.cities = cities
+        editSavedCitiesViewController.modalPresentationStyle = .overCurrentContext
     }
 }

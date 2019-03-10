@@ -12,7 +12,6 @@ extension WeatherCVCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let forecast = weatherForecastTVCViewModel.forecast
-        
         return forecast.count
     }
     
@@ -22,7 +21,6 @@ extension WeatherCVCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! WeatherForecastTVCell
-        
         let forecast = weatherForecastTVCViewModel.forecast[indexPath.row]
         
         return cell.madeWithModelOf(forecast)

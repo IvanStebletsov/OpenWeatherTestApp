@@ -8,7 +8,11 @@
 
 import UIKit
 
-extension WeatherCVCell {
+protocol WeatherCollectionViewCellDelegate {
+    func reloadView()
+}
+
+extension WeatherCVCell: WeatherCollectionViewCellDelegate {
     
     // MARK: - UI Configuration
     func makeWeatherDataStackView() {
@@ -79,7 +83,7 @@ extension WeatherCVCell {
     
     func makeMinMaxTempStackView() {
         minMaxTempStackView = UIStackView()
-        minMaxTempStackView.distribution = .fillProportionally
+        minMaxTempStackView.distribution = .fillEqually
         minMaxTempStackView.spacing = 20
         minMaxTempStackView.axis = .horizontal
         minMaxTempStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -161,4 +165,9 @@ extension WeatherCVCell {
             separationBottomLine.heightAnchor.constraint(equalToConstant: 1)]
         NSLayoutConstraint.activate(separationBottomLineConstraints)
     }
+    
+    func reloadView() {
+        weatherForecastTableView.reloadData()
+    }
+    
 }

@@ -57,6 +57,7 @@ struct WeatherDescription: Codable {
 }
 
 struct CityDescription: Codable {
+    var id: Int
     var name: String
     var country: String
 }

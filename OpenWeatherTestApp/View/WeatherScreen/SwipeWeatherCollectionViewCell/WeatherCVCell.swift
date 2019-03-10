@@ -13,6 +13,7 @@ class WeatherCVCell: UICollectionViewCell {
     // MARK: - Properties
     let cellId = "cellId"
     var weatherForecastTVCViewModel: WeatherForecastTVCViewModel!
+    var weatherViewController: WeatherViewController!
     
     // MARK: - UI elements
     var weatherDataStackView: UIStackView!

@@ -43,7 +43,7 @@ extension WeatherForecastTVCell {
     
     func makeMinMaxTempStackView() {
         minMaxTempStackView = UIStackView()
-        minMaxTempStackView.distribution = .fillProportionally
+        minMaxTempStackView.distribution = .fillEqually
         minMaxTempStackView.spacing = 20
         minMaxTempStackView.axis = .horizontal
         minMaxTempStackView.translatesAutoresizingMaskIntoConstraints = false
