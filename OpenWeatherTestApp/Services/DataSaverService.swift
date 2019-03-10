@@ -8,9 +8,27 @@
 
 import Foundation
 
-class DataSaverService {
- 
+protocol DataSaver {
     
+    
+    func saveCities(_ cities: [Int])
+    func loadSavedCities() -> [Int]
+    func loadPredefinedCities() -> [Int]
+    func savePredefinedCities()
+}
+
+class DataSaverService: DataSaver {
+ 
+    var coreData: CoreDataStorage?
+    
+    func saveNew(name: String, price: String, stock: String) {
+//        guard let coreDataManager = coreDataManager else { return }
+//        let newItem = Item(context: coreDataManager.mainManagedObjectContext)
+//        newItem.name = name
+//        newItem.price = price
+//        newItem.stock = stock
+//        coreDataManager.saveChanges()
+    }
     
     
     // MARK: - UserDefaults methods

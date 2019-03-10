@@ -12,11 +12,11 @@ class EditSavedCitiesViewModel {
     
     // MARK: - Properties
     var networkService: Networking!
-    var dataSaverService: DataSaverService!
+    var dataSaverService: DataSaver!
     var cities = [Weather]()
     
     // MARK: - Initialization
-    init(networkService: Networking, dataSaverService: DataSaverService) {
+    init(networkService: Networking, dataSaverService: DataSaver) {
         self.networkService = networkService
         self.dataSaverService = dataSaverService
     }

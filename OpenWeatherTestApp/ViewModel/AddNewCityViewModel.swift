@@ -16,12 +16,12 @@ class AddNewCityViewModel {
     
     // MARK: - Properties
     var networkService: Networking!
-    var dataSaverService: DataSaverService!
+    var dataSaverService: DataSaver!
     var cityData = [City]()
     var delegate: AddNewCityViewModelDelegate?
     
     // MARK: - Initialization
-    init(networkService: Networking, dataSaverService: DataSaverService) {
+    init(networkService: Networking, dataSaverService: DataSaver) {
         self.networkService = networkService
         self.dataSaverService = dataSaverService
     }

@@ -12,7 +12,7 @@ class WeatherViewModel {
     
     // MARK: - Properties
     var networkService: Networking!
-    var dataSaverService: DataSaverService!
+    var dataSaverService: DataSaver!
     var addNewCityViewController: AddNewCityViewController!
     var editSavedCitiesViewController: EditSavedCitiesViewController!
     var citiesIds = [Int]()

@@ -15,7 +15,7 @@ protocol WeatherViewCintrollerDelegate {
 
 extension WeatherViewController: WeatherViewCintrollerDelegate {
     
-    // MARK: - UI Configuration
+    // MARK: - UI Configuration    
     func makeButtomView() {
         buttomView = UIView()
         buttomView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +82,7 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
         swipeCollectionView.backgroundColor = .clear
         swipeCollectionView.isPagingEnabled = true
         swipeCollectionView.showsHorizontalScrollIndicator = false
+        swipeCollectionView.allowsSelection = false
         
         view.addSubview(swipeCollectionView)
         

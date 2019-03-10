@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        window?.setGradientBackground(ColorOne: #colorLiteral(red: 0.1520375907, green: 0.5580861568, blue: 0.7331124544, alpha: 1), ColorTwo: #colorLiteral(red: 0.4053153396, green: 0.664766252, blue: 0.8025251031, alpha: 1))
         
         let weatherViewModel = WeatherViewModel(networkService: networkService, dataSaverService: dataSaverService)
         weatherViewModel.citiesIds = setupPredefinedCities()

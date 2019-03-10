@@ -39,6 +39,7 @@
 		26EDF24322344B4400EFFE6D /* EditSavedCitiesVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EDF24222344B4400EFFE6D /* EditSavedCitiesVCExtension.swift */; };
 		26EDF24522344C8A00EFFE6D /* SavedCitiesTVProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EDF24422344C8A00EFFE6D /* SavedCitiesTVProtocol.swift */; };
 		26EDF247223457A500EFFE6D /* EditSavedCitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EDF246223457A500EFFE6D /* EditSavedCitiesViewModel.swift */; };
+		26EDF249223519F400EFFE6D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EDF248223519F400EFFE6D /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		26EDF24222344B4400EFFE6D /* EditSavedCitiesVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSavedCitiesVCExtension.swift; sourceTree = "<group>"; };
 		26EDF24422344C8A00EFFE6D /* SavedCitiesTVProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCitiesTVProtocol.swift; sourceTree = "<group>"; };
 		26EDF246223457A500EFFE6D /* EditSavedCitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSavedCitiesViewModel.swift; sourceTree = "<group>"; };
+		26EDF248223519F400EFFE6D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				2645E3722231D6AA00F9D8C1 /* CollectionViewCellExtension.swift */,
 				2645E3782231F47700F9D8C1 /* TableVIewCellExtension.swift */,
 				2645E3742231DC4000F9D8C1 /* IntExtension.swift */,
+				26EDF248223519F400EFFE6D /* ViewExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				2624F0D0222EE2D70034EF51 /* WeatherVCExtension.swift in Sources */,
 				2624F0D2222EE8120034EF51 /* SwipeCVProtocols.swift in Sources */,
 				2645E36D2231A36900F9D8C1 /* Weather.swift in Sources */,
+				26EDF249223519F400EFFE6D /* ViewExtension.swift in Sources */,
 				2645E36622309E5400F9D8C1 /* WeatherCVCellExtension.swift in Sources */,
 				2624F0B5222EDD1C0034EF51 /* WeatherViewController.swift in Sources */,
 				26E75473222F1C8A00B87ED9 /* NetworkService.swift in Sources */,
