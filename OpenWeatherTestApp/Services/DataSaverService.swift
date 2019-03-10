@@ -18,18 +18,6 @@ protocol DataSaver {
 }
 
 class DataSaverService: DataSaver {
- 
-    var coreData: CoreDataStorage?
-    
-    func saveNew(name: String, price: String, stock: String) {
-//        guard let coreDataManager = coreDataManager else { return }
-//        let newItem = Item(context: coreDataManager.mainManagedObjectContext)
-//        newItem.name = name
-//        newItem.price = price
-//        newItem.stock = stock
-//        coreDataManager.saveChanges()
-    }
-    
     
     // MARK: - UserDefaults methods
     // This methods for working with predefined cities and with available network connection

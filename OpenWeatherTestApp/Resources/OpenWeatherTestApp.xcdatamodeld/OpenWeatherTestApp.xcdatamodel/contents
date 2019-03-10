@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="CityDescription" representedClassName="CityDescription" syncable="YES" codeGenerationType="class">
+        <attribute name="country" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="TemperatureData" representedClassName="TemperatureData" syncable="YES" codeGenerationType="class">
+        <attribute name="current" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="max" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="min" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Weather" representedClassName="Weather" syncable="YES" codeGenerationType="class">
+        <attribute name="statusCode" attributeType="String" syncable="YES"/>
+        <relationship name="city" maxCount="1" deletionRule="Cascade" destinationEntity="CityDescription" syncable="YES"/>
+        <relationship name="weatherForecastOnDay" maxCount="1" deletionRule="Cascade" destinationEntity="WeatherForecastOnDay" syncable="YES"/>
+    </entity>
+    <entity name="WeatherDescription" representedClassName="WeatherDescription" syncable="YES" codeGenerationType="class">
+        <attribute name="full" attributeType="String" syncable="YES"/>
+        <attribute name="icon" attributeType="String" syncable="YES"/>
+        <attribute name="short" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WeatherForecastOnDay" representedClassName="WeatherForecastOnDay" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="temperature" maxCount="1" deletionRule="Cascade" destinationEntity="TemperatureData" syncable="YES"/>
+        <relationship name="weatherDescription" maxCount="1" deletionRule="Cascade" destinationEntity="WeatherDescription" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Weather" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="WeatherForecastOnDay" positionX="-54" positionY="0" width="128" height="90"/>
+        <element name="TemperatureData" positionX="-36" positionY="18" width="128" height="90"/>
+        <element name="WeatherDescription" positionX="-18" positionY="54" width="128" height="90"/>
+        <element name="CityDescription" positionX="0" positionY="81" width="128" height="90"/>
+    </elements>
 </model>

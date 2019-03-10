@@ -18,6 +18,7 @@ extension EditSavedCitiesViewController: UITableViewDelegate, UITableViewDataSou
         
         let cityInfo = editSavedCitiesViewModel.cities[indexPath.row]
         
+        cell.textLabel?.textColor = #colorLiteral(red: 0.4274446338, green: 0.4274446338, blue: 0.4274446338, alpha: 1)
         cell.backgroundColor = .clear
         cell.textLabel?.text = "\(cityInfo.city.name), \(cityInfo.city.country)"
         

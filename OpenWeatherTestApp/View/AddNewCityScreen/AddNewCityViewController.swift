@@ -31,5 +31,6 @@ class AddNewCityViewController: UIViewController {
         makeCloseAddNewCityVCButton()
         makeCitySearchBar()
         makeSearchResultsTableView()
+        addGestureRecognizer()
     }
 }

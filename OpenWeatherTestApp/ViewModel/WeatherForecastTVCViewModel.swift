@@ -11,10 +11,10 @@ import Foundation
 class WeatherForecastTVCViewModel {
     
     // MARK: - Properties
-    var forecast = [weatherForecastOnDay]()
+    var forecast = [WeatherForecastOnDay]()
     
     // MARK: - Initialization
-    init(forecast: [weatherForecastOnDay]) {
+    init(forecast: [WeatherForecastOnDay]) {
         self.forecast = forecast
     }
     

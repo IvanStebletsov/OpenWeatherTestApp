@@ -37,6 +37,8 @@ extension AddNewCityViewController: AddNewCityViewModelDelegate {
         addNewCityBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addNewCityBackgroundView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
         addNewCityBackgroundView.layer.cornerRadius = 25
+        addNewCityBackgroundView.layer.shouldRasterize = true
+        addNewCityBackgroundView.layer.rasterizationScale = UIScreen.main.nativeScale
         
         view.addSubview(addNewCityBackgroundView)
         
@@ -67,19 +69,35 @@ extension AddNewCityViewController: AddNewCityViewModelDelegate {
     }
     
     func makeCitySearchBar() {
+        let headerLable = UILabel()
+        headerLable.translatesAutoresizingMaskIntoConstraints = false
+        headerLable.font = .systemFont(ofSize: 18)
+        headerLable.textColor = #colorLiteral(red: 0.4274446338, green: 0.4274446338, blue: 0.4274446338, alpha: 1)
+        headerLable.textAlignment = .center
+        headerLable.text = "Add new city"
+        
+        view.addSubview(headerLable)
+        
+        let headerLableConstraints = [
+            headerLable.topAnchor.constraint(equalTo: addNewCityBackgroundView.topAnchor, constant: 10),
+            headerLable.leadingAnchor.constraint(equalTo: addNewCityBackgroundView.leadingAnchor, constant: 20),
+            headerLable.trailingAnchor.constraint(equalTo: addNewCityBackgroundView.trailingAnchor, constant: -10)]
+        NSLayoutConstraint.activate(headerLableConstraints)
+        
         citySearchBar = UISearchBar()
         citySearchBar.translatesAutoresizingMaskIntoConstraints = false
         citySearchBar.barStyle = .blackTranslucent
         citySearchBar.searchBarStyle = .minimal
         citySearchBar.endEditing(true)
         citySearchBar.delegate = self
+        citySearchBar.returnKeyType = .search
         
         if let textfield = citySearchBar.value(forKey: "searchField") as? UITextField {
-            textfield.textColor = .white
+            textfield.textColor = #colorLiteral(red: 0.4274446338, green: 0.4274446338, blue: 0.4274446338, alpha: 1)
             
             if let backgroundview = textfield.subviews.first {
                 
-                backgroundview.backgroundColor = #colorLiteral(red: 0.5999328494, green: 0.6000387073, blue: 0.5999261737, alpha: 1)
+                backgroundview.backgroundColor = #colorLiteral(red: 0.8799525746, green: 0.8886649763, blue: 0.8886649763, alpha: 1)
                 backgroundview.alpha = 0.5
                 
                 backgroundview.layer.cornerRadius = 10
@@ -90,7 +108,7 @@ extension AddNewCityViewController: AddNewCityViewModelDelegate {
         view.addSubview(citySearchBar)
         
         let citySearchBarConstraints = [
-            citySearchBar.topAnchor.constraint(equalTo: addNewCityBackgroundView.topAnchor, constant: 5),
+            citySearchBar.topAnchor.constraint(equalTo: headerLable.bottomAnchor, constant: 5),
             citySearchBar.leadingAnchor.constraint(equalTo: addNewCityBackgroundView.leadingAnchor),
             citySearchBar.trailingAnchor.constraint(equalTo: addNewCityBackgroundView.trailingAnchor)]
         NSLayoutConstraint.activate(citySearchBarConstraints)
@@ -140,6 +158,14 @@ extension AddNewCityViewController: AddNewCityViewModelDelegate {
             self.present(alertController, animated: true, completion: nil)
             self.activityIndicatorView.isHidden = true
         }
+    }
+    
+    // MARK: - Gesture recognizer
+    func addGestureRecognizer() {
+        let slideDown = UISwipeGestureRecognizer(target: self, action: #selector(unwindAddNewCityViewController))
+        slideDown.direction = .down
+        addNewCityBackgroundView.addGestureRecognizer(slideDown)
+        view.addGestureRecognizer(slideDown)
     }
     
     // MARK: - Dismiss keyboard

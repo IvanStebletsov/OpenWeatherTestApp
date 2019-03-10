@@ -10,7 +10,7 @@ import Foundation
 
 struct Weather: Codable {
     var statusCode: String
-    var weatherForecastOnDay: [weatherForecastOnDay]
+    var weatherForecastOnDay: [WeatherForecastOnDay]
     var city: CityDescription
     
     enum CodingKeys: String, CodingKey {
@@ -20,7 +20,7 @@ struct Weather: Codable {
     }
 }
 
-struct weatherForecastOnDay: Codable {
+struct WeatherForecastOnDay: Codable {
     var temperature: TemperatureData
     var weatherDescription: [WeatherDescription]
     var date: Int

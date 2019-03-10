@@ -12,6 +12,21 @@ extension EditSavedCitiesViewController {
     
     // MARK: - UI Configuration
     func makeSavedCitiesTableView() {
+        let headerLable = UILabel()
+        headerLable.translatesAutoresizingMaskIntoConstraints = false
+        headerLable.font = .systemFont(ofSize: 18)
+        headerLable.textColor = #colorLiteral(red: 0.4274446338, green: 0.4274446338, blue: 0.4274446338, alpha: 1)
+        headerLable.textAlignment = .center
+        headerLable.text = "Current cities"
+        
+        view.addSubview(headerLable)
+        
+        let headerLableConstraints = [
+            headerLable.topAnchor.constraint(equalTo: editSavedCitiesBackgroundView.topAnchor, constant: 10),
+            headerLable.leadingAnchor.constraint(equalTo: editSavedCitiesBackgroundView.leadingAnchor, constant: 20),
+            headerLable.trailingAnchor.constraint(equalTo: editSavedCitiesBackgroundView.trailingAnchor, constant: -10)]
+        NSLayoutConstraint.activate(headerLableConstraints)
+        
         savedCitiesTableView = UITableView()
         savedCitiesTableView.translatesAutoresizingMaskIntoConstraints = false
         savedCitiesTableView.separatorStyle = .none
@@ -25,7 +40,7 @@ extension EditSavedCitiesViewController {
         savedCitiesTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
         let searchResultsTableViewConstraints = [
-            savedCitiesTableView.topAnchor.constraint(equalTo: editSavedCitiesBackgroundView.topAnchor, constant: 20),
+            savedCitiesTableView.topAnchor.constraint(equalTo: headerLable.bottomAnchor, constant: 10),
             savedCitiesTableView.bottomAnchor.constraint(equalTo: editSavedCitiesBackgroundView.bottomAnchor, constant: -20),
             savedCitiesTableView.leadingAnchor.constraint(equalTo: editSavedCitiesBackgroundView.leadingAnchor),
             savedCitiesTableView.trailingAnchor.constraint(equalTo: editSavedCitiesBackgroundView.trailingAnchor)]
@@ -37,6 +52,8 @@ extension EditSavedCitiesViewController {
         editSavedCitiesBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         editSavedCitiesBackgroundView.backgroundColor = UIColor.init(white: 1, alpha: 0.9)
         editSavedCitiesBackgroundView.layer.cornerRadius = 25
+        editSavedCitiesBackgroundView.layer.shouldRasterize = true
+        editSavedCitiesBackgroundView.layer.rasterizationScale = UIScreen.main.nativeScale
         
         view.addSubview(editSavedCitiesBackgroundView)
         
@@ -64,6 +81,14 @@ extension EditSavedCitiesViewController {
             closeEditSavedCitiesVCButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.03),
             closeEditSavedCitiesVCButton.widthAnchor.constraint(equalTo: closeEditSavedCitiesVCButton.heightAnchor)]
         NSLayoutConstraint.activate(closeAddNewCityVCButtonConstraints)
+    }
+    
+    // MARK: - Gesture recognizer
+    func addGestureRecognizer() {
+        let slideDown = UISwipeGestureRecognizer(target: self, action: #selector(unwindEditSavedCitiesViewController))
+        slideDown.direction = .down
+        editSavedCitiesBackgroundView.addGestureRecognizer(slideDown)
+        view.addGestureRecognizer(slideDown)
     }
     
     // MARK: - Transition method

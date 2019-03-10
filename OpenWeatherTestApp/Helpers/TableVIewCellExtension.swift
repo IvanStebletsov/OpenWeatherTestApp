@@ -9,7 +9,7 @@
 import UIKit
 
 extension WeatherForecastTVCell {
-    func madeWithModelOf(_ forecast: weatherForecastOnDay) -> WeatherForecastTVCell {
+    func madeWithModelOf(_ forecast: WeatherForecastOnDay) -> WeatherForecastTVCell {
         let weatherIcon = UIImage(named: forecast.weatherDescription.first!.icon)
         let minTemperature = String(format: "%.0f", forecast.temperature.min)
         let maxTemperature = String(format: "%.0f", forecast.temperature.max)

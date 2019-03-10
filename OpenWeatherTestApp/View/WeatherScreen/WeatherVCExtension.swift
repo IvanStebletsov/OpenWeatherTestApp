@@ -137,6 +137,36 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
         NSLayoutConstraint.activate(someTroubleDescriptionLabelConstraints)
     }
     
+    func makeRefreshActivityIndicator() {
+        activityIndicatorBackgroundView = UIView()
+        activityIndicatorBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorBackgroundView.backgroundColor = UIColor.init(white: 1, alpha: 0.8)
+        activityIndicatorBackgroundView.layer.cornerRadius = 15
+        activityIndicatorBackgroundView.isHidden = true
+        
+        view.addSubview(activityIndicatorBackgroundView)
+        
+        let activityIndicatorBackgroundViewConstraints = [
+            activityIndicatorBackgroundView.centerYAnchor.constraint(equalTo: swipeCollectionView.centerYAnchor),
+            activityIndicatorBackgroundView.centerXAnchor.constraint(equalTo: swipeCollectionView.centerXAnchor),
+            activityIndicatorBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15),
+            activityIndicatorBackgroundView.heightAnchor.constraint(equalTo: activityIndicatorBackgroundView.widthAnchor)]
+        NSLayoutConstraint.activate(activityIndicatorBackgroundViewConstraints)
+        
+        activityIndicatorView = UIActivityIndicatorView(style: .gray)
+        activityIndicatorView.tintColor = .gray
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.isHidden = true
+        
+        activityIndicatorBackgroundView.addSubview(activityIndicatorView)
+        
+        let activityIndicatorViewConstraints = [
+            activityIndicatorView.centerYAnchor.constraint(equalTo: activityIndicatorBackgroundView.centerYAnchor),
+            activityIndicatorView.centerXAnchor.constraint(equalTo: activityIndicatorBackgroundView.centerXAnchor)]
+        NSLayoutConstraint.activate(activityIndicatorViewConstraints)
+    }
+    
     func showHideNoDataForDisplayImageView() {
         if self.weatherViewModel.cities.count == 0 {
             self.noDataForDisplayImageView.isHidden = false
@@ -147,14 +177,26 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
         }
     }
     
+    // MARK: - Gesture recognizer
+    func addGestureRecognizer() {
+        let slideDown = UISwipeGestureRecognizer(target: self, action: #selector(reloadView))
+        slideDown.direction = .down
+        swipeCollectionView.addGestureRecognizer(slideDown)
+        view.addGestureRecognizer(slideDown)
+    }
+
     // MARK: - Protocol methods
-    func reloadView() {
+    @objc func reloadView() {
         weatherViewModel.checkForNewCities()
+        
+        activityIndicatorBackgroundView.isHidden = false
+        activityIndicatorView.isHidden = false
         
         weatherViewModel.fetchData() {
             DispatchQueue.main.async { [unowned self] in
                 self.swipeCollectionView.reloadData()
-                self.showHideNoDataForDisplayImageView()
+                self.activityIndicatorBackgroundView.isHidden = true
+                self.activityIndicatorView.isHidden = true
                 self.delegate?.reloadView()
             }
         }
@@ -164,7 +206,6 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
         weatherViewModel.cities.remove(at: indexPath.row)
         DispatchQueue.main.async { [unowned self] in
             self.swipeCollectionView.reloadData()
-            self.showHideNoDataForDisplayImageView()
             self.delegate?.reloadView()
         }
     }

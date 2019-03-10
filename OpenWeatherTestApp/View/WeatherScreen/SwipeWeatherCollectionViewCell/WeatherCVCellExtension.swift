@@ -37,6 +37,9 @@ extension WeatherCVCell: WeatherCollectionViewCellDelegate {
         cityNameLabel.textColor = .white
         cityNameLabel.textAlignment = .center
         cityNameLabel.text = "--"
+        cityNameLabel.layer.shadowColor = UIColor.black.cgColor
+        cityNameLabel.layer.shadowOpacity = 0.4
+        cityNameLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         weatherDataStackView.addArrangedSubview(cityNameLabel)
     }
@@ -45,6 +48,8 @@ extension WeatherCVCell: WeatherCollectionViewCellDelegate {
         weatherLabel = UILabel()
         weatherLabel.font = .systemFont(ofSize: 30)
         weatherLabel.textColor = .white
+        weatherLabel.layer.shadowOpacity = 0.4
+        weatherLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         weatherDataStackView.addArrangedSubview(weatherLabel)
     }
@@ -53,16 +58,22 @@ extension WeatherCVCell: WeatherCollectionViewCellDelegate {
         weatherDescriptionLabel = UILabel()
         weatherDescriptionLabel.font = .systemFont(ofSize: 20)
         weatherDescriptionLabel.textColor = .white
+        weatherDescriptionLabel.layer.shadowColor = UIColor.black.cgColor
+        weatherDescriptionLabel.layer.shadowOpacity = 0.4
+        weatherDescriptionLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         weatherDataStackView.addArrangedSubview(weatherDescriptionLabel)
     }
     
     func makeTemperatureLabel() {
         temperatureLabel = UILabel()
-        temperatureLabel.font = .boldSystemFont(ofSize: 80)
+        temperatureLabel.font = .boldSystemFont(ofSize: 100)
         temperatureLabel.textColor = .white
         temperatureLabel.textAlignment = .center
         temperatureLabel.text = "--"
+        temperatureLabel.layer.shadowColor = UIColor.black.cgColor
+        temperatureLabel.layer.shadowOpacity = 0.4
+        temperatureLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
         
         weatherDataStackView.addArrangedSubview(temperatureLabel)
     }

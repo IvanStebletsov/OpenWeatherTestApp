@@ -27,5 +27,6 @@ class EditSavedCitiesViewController: UIViewController {
         makeEditSavedCitiesBackgroundView()
         makeCloseEditSavedCitiesVCButton()
         makeSavedCitiesTableView()
+        addGestureRecognizer()
     }
 }

@@ -14,7 +14,7 @@ protocol Networking {
 }
 
 class NetworkService: Networking {
-
+    
     // MARK: - Properties
     let baseUrl = "https://api.openweathermap.org/data/2.5/forecast/"
     let baseUrlForFind = "https://api.openweathermap.org/data/2.5/find"
@@ -35,12 +35,10 @@ class NetworkService: Networking {
         
         var weatherData = [Weather]()
         
-        citiesIds.forEach {
-            requestQuerys["id"] = String($0)
+        for city in citiesIds {
+            requestQuerys["id"] = String(city)
             guard let url = baseUrl.createUrl(forRequestWith: requestQuerys) else { return }
-            
-            print(url)
-            
+
             let urlSession = URLSession.shared
             
             urlSession.dataTask(with: url, completionHandler: { (data, response, error) in
@@ -49,23 +47,17 @@ class NetworkService: Networking {
                 guard let data = data else { return }
                 guard let weather = try? JSONDecoder().decode(Weather.self, from: data) else { return }
                 weatherData.append(weather)
-                
                 completion(weatherData)
-                
             }).resume()
         }
     }
     
     func fetchCityDataFor(_ cityName: String, completion: @escaping (([City]?, Error?) -> ())) {
-        
         var cityInfo = [City]()
         
         findRequestQuerys["q"] = cityName
         
         guard let url = baseUrlForFind.createUrl(forRequestWith: findRequestQuerys) else { return }
-        
-        print(url)
-        
         let urlSession = URLSession.shared
         
         urlSession.dataTask(with: url, completionHandler: { (data, response, error) in
@@ -73,14 +65,11 @@ class NetworkService: Networking {
                 print("Error: \(error.localizedDescription)")
                 completion(nil, error)
             }
-            
             guard let data = data else { return }
             guard let city = try? JSONDecoder().decode(City.self, from: data) else { completion(cityInfo, nil); return }
             
             cityInfo.append(city)
-            
             completion(cityInfo, error)
-
         }).resume()
     }
 }

@@ -17,27 +17,36 @@ class WeatherViewController: UIViewController {
     
     // MARK: - UI elements
     var buttomView: UIView!
+    var activityIndicatorBackgroundView: UIView!
+    var activityIndicatorView: UIActivityIndicatorView!
     var copyright: UIImageView!
     var addNewCityButton: UIButton!
+    var refreshWeatherDataButton: UIButton!
     var swipeCollectionView: UICollectionView!
     var noDataForDisplayImageView: UIImageView!
     var someTroubleDescriptionLabel: UILabel!
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     // MARK: - Life cicle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         makeButtomView()
         makeCopyrightImage()
         makeAddNewCityButton()
-        makeSwipeCollectionView()
         makeNoDataForDisplayImageView()
         
         weatherViewModel.fetchData() {
             DispatchQueue.main.async { [unowned self] in
                 self.swipeCollectionView.reloadData()
-                self.showHideNoDataForDisplayImageView()
             }
         }
+        makeSwipeCollectionView()
+        makeRefreshActivityIndicator()
+        addGestureRecognizer()
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 extension WeatherViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        showHideNoDataForDisplayImageView()
         return weatherViewModel.cities.count
     }
     
@@ -20,7 +21,7 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout, UICollectio
         cell.weatherViewController = self
         cell.weatherViewController.delegate = cell
         let weather = weatherViewModel.cities[indexPath.row]
-        
+
         return cell.madeWithModelOf(weather)
     }
     

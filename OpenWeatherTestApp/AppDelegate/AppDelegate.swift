@@ -17,8 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isCitiesPredefined = false
     private let networkService = NetworkService()
     private let dataSaverService = DataSaverService()
-    
-    private let coreDataStorage = CoreDataStorage(modelName: "OpenWeatherTestApp")
+
 
     // MARK: - Application lifecicle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -26,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.setGradientBackground(ColorOne: #colorLiteral(red: 0.1520375907, green: 0.5580861568, blue: 0.7331124544, alpha: 1), ColorTwo: #colorLiteral(red: 0.4053153396, green: 0.664766252, blue: 0.8025251031, alpha: 1))
+        makeCloudsOnBackground()
         
         let weatherViewModel = WeatherViewModel(networkService: networkService, dataSaverService: dataSaverService)
         weatherViewModel.citiesIds = setupPredefinedCities()
@@ -60,5 +60,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             return dataSaverService.loadSavedCities()
         }
+    }
+    
+    func makeCloudsOnBackground() {
+        let bigCloudImageView = UIImageView(frame: CGRect(x: window!.frame.width / 2, y: 0, width: 350, height: 207))
+        bigCloudImageView.image = UIImage(named: "cloud1")
+        window?.addSubview(bigCloudImageView)
+        
+        UIView.animate(withDuration: 180,
+                       delay: 0,
+                       options: [.autoreverse, .repeat],
+                       animations: { [unowned self] in
+                        bigCloudImageView.frame.origin.x -= ((self.window!.frame.width / 2) + bigCloudImageView.frame.width) })
+        
+        
+        let smallCloudImageView = UIImageView(frame: CGRect(x: window!.frame.width / 2, y: 0, width: 270, height: 146))
+        smallCloudImageView.image = UIImage(named: "cloud2")
+        window?.addSubview(smallCloudImageView)
+        
+        UIView.animate(withDuration: 120,
+                       delay: 0,
+                       options: [.autoreverse, .repeat],
+                       animations: { [unowned self] in
+                        smallCloudImageView.frame.origin.x -= ((self.window!.frame.width / 2) + smallCloudImageView.frame.width) })
     }
 }
