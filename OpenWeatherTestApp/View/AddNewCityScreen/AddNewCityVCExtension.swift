@@ -154,9 +154,9 @@ extension AddNewCityViewController: AddNewCityViewModelDelegate {
         }
         alertController.addAction(okAlertAction)
         
-        DispatchQueue.main.async { [unowned self] in
-            self.present(alertController, animated: true, completion: nil)
-            self.activityIndicatorView.isHidden = true
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alertController, animated: true, completion: nil)
+            self?.activityIndicatorView.isHidden = true
         }
     }
     

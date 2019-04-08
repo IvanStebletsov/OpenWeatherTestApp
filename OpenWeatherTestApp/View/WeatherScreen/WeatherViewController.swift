@@ -13,7 +13,6 @@ class WeatherViewController: UIViewController {
     // MARK: - Properties
     let cellId = "cellId"
     var weatherViewModel: WeatherViewModel!
-    var delegate: WeatherCollectionViewCellDelegate?
     
     // MARK: - UI elements
     var buttomView: UIView!
@@ -41,8 +40,8 @@ class WeatherViewController: UIViewController {
         makeNoDataForDisplayImageView()
         
         weatherViewModel.fetchData() {
-            DispatchQueue.main.async { [unowned self] in
-                self.swipeCollectionView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.swipeCollectionView.reloadData()
             }
         }
         makeSwipeCollectionView()

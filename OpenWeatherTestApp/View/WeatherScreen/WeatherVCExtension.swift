@@ -168,14 +168,12 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
     }
     
     func showHideNoDataForDisplayImageView() {
-        if weatherViewModel.cities.count == 0 {
-            noDataForDisplayImageView.isHidden = false
-            someTroubleDescriptionLabel.isHidden = false
-            activityIndicatorBackgroundView.isHidden = true
-            activityIndicatorView.isHidden = true
+        if self.weatherViewModel.cities.count == 0 {
+            self.noDataForDisplayImageView.isHidden = false
+            self.someTroubleDescriptionLabel.isHidden = false
         } else {
-            noDataForDisplayImageView.isHidden = true
-            someTroubleDescriptionLabel.isHidden = true
+            self.noDataForDisplayImageView.isHidden = true
+            self.someTroubleDescriptionLabel.isHidden = true
         }
     }
     
@@ -195,11 +193,10 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
         activityIndicatorView.isHidden = false
         
         weatherViewModel.fetchData() {
-            DispatchQueue.main.async { [unowned self] in
-                self.swipeCollectionView.reloadData()
-                self.activityIndicatorBackgroundView.isHidden = true
-                self.activityIndicatorView.isHidden = true
-                self.delegate?.reloadView()
+            DispatchQueue.main.async { [weak self] in
+                self?.swipeCollectionView.reloadData()
+                self?.activityIndicatorBackgroundView.isHidden = true
+                self?.activityIndicatorView.isHidden = true
             }
         }
     }
@@ -208,7 +205,6 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
         weatherViewModel.cities.remove(at: indexPath.row)
         DispatchQueue.main.async { [unowned self] in
             self.swipeCollectionView.reloadData()
-            self.delegate?.reloadView()
         }
     }
     

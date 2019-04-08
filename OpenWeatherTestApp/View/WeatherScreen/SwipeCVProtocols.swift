@@ -18,8 +18,9 @@ extension WeatherViewController: UICollectionViewDelegateFlowLayout, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! WeatherCVCell
         cell.weatherForecastTVCViewModel = WeatherForecastTVCViewModel(forecast: weatherViewModel.cities[indexPath.row].weatherForecastOnDay)
-        cell.weatherViewController = self
-        cell.weatherViewController.delegate = cell
+//        cell.weatherViewController = self
+//        cell.weatherViewController.delegate = cell
+        cell.weatherForecastTableView.reloadData()
         let weather = weatherViewModel.cities[indexPath.row]
 
         return cell.madeWithModelOf(weather)

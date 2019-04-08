@@ -26,8 +26,8 @@ class WeatherViewModel {
     
     // MARK: - Methods
     func fetchData(completion: @escaping (() -> ())) {
-        networkService.fetchWeatherDataFor(citiesIds) { [unowned self] in
-            self.cities = $0
+        networkService.fetchWeatherDataFor(citiesIds) { [weak self] in
+            self?.cities = $0
             completion()
         }
     }

@@ -14,6 +14,7 @@ class AddNewCityViewController: UIViewController {
     let cellId = "cellId"
     var addNewCityViewModel: AddNewCityViewModel!
     var delegate: WeatherViewCintrollerDelegate?
+    var pendingRequestWorkItem: DispatchWorkItem?
     
     // MARK: - UI elements
     var addNewCityBackgroundView: UIView!

@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol WeatherCollectionViewCellDelegate {
-    func reloadView()
-}
-
-extension WeatherCVCell: WeatherCollectionViewCellDelegate {
+extension WeatherCVCell {
     
     // MARK: - UI Configuration
     func makeWeatherDataStackView() {
@@ -176,9 +172,4 @@ extension WeatherCVCell: WeatherCollectionViewCellDelegate {
             separationBottomLine.heightAnchor.constraint(equalToConstant: 1)]
         NSLayoutConstraint.activate(separationBottomLineConstraints)
     }
-    
-    func reloadView() {
-        weatherForecastTableView.reloadData()
-    }
-    
 }

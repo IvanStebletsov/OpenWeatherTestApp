@@ -30,20 +30,21 @@ extension AddNewCityViewController: UISearchBarDelegate {
     }
     
     func performSearchrequest(with searchText: String) {
-        let searchTask = DispatchWorkItem { [unowned self] in
-            if !searchText.isEmpty {
-                DispatchQueue.main.async { self.activityIndicatorView.isHidden = false }
-                self.addNewCityViewModel.fetchDataForCity(searchText) {
-                    DispatchQueue.main.async { [unowned self] in
-                        self.searchResultsTableView.reloadData()
-                        self.activityIndicatorView.isHidden = true
-                    }
+        pendingRequestWorkItem?.cancel()
+        
+        let requestWorkItem = DispatchWorkItem { [weak self] in
+            DispatchQueue.main.async { [weak self] in
+                self?.activityIndicatorView.isHidden = false
+            }
+            
+            self?.addNewCityViewModel.fetchDataForCity(searchText) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.searchResultsTableView.reloadData()
+                    self?.activityIndicatorView.isHidden = true
                 }
-            } else {
-                DispatchQueue.main.async { self.searchResultsTableView.reloadData() }
             }
         }
-        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: DispatchTime.now() + 0.8, execute: searchTask)
+        pendingRequestWorkItem = requestWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: requestWorkItem)
     }
-    
 }

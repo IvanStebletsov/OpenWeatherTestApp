@@ -24,8 +24,8 @@ class EditSavedCitiesViewModel {
     // MARK: - Methods
     func fetchDataForCity(_ cityName: String, completion: @escaping (() -> ())) {
         let savedCities = dataSaverService.loadSavedCities()
-        networkService.fetchWeatherDataFor(savedCities) { [unowned self] in
-            self.cities = $0
+        networkService.fetchWeatherDataFor(savedCities) { [weak self] in
+            self?.cities = $0
             completion()
         }
     }

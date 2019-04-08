@@ -28,14 +28,14 @@ class AddNewCityViewModel {
     
     // MARK: - Methods
     func fetchDataForCity(_ cityName: String, completion: @escaping (() -> ())) {
-        networkService.fetchCityDataFor(cityName) { [unowned self] (data, error)in
+        networkService.fetchCityDataFor(cityName) { [weak self] (data, error)in
             guard let data = data else {
                 guard let error = error else { return }
-                self.delegate?.showErrorAlertController(error)
+                self?.delegate?.showErrorAlertController(error)
                 return
             }
-            self.cityData = []
-            self.cityData = data
+            self?.cityData = []
+            self?.cityData = data
             completion()
         }
     }
