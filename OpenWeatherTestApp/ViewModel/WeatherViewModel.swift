@@ -15,7 +15,6 @@ class WeatherViewModel {
     var dataSaverService: DataSaver!
     var addNewCityViewController: AddNewCityViewController!
     var editSavedCitiesViewController: EditSavedCitiesViewController!
-    var citiesIds = [Int]()
     var cities = [Weather]()
     
     // MARK: - Initialization
@@ -26,17 +25,20 @@ class WeatherViewModel {
     
     // MARK: - Methods
     func fetchData(completion: @escaping (() -> ())) {
+        cities = []
+        let citiesIds = dataSaverService.loadSavedCities()
+
         networkService.fetchWeatherDataFor(citiesIds) { [weak self] in
-            self?.cities = $0
+            guard let self = self else { return }
+            for cityId in citiesIds {
+                if let cityForecast = $0.first(where: { $0.city.id == cityId }) {
+                    self.cities.append(cityForecast)
+                }
+            }
             completion()
         }
     }
-    
-    func checkForNewCities() {
-        let newCities = dataSaverService.loadSavedCities()
-        if citiesIds != newCities { citiesIds = newCities }
-    }
-    
+
     func initAddNewCityViewController() {
         addNewCityViewController = AddNewCityViewController()
         addNewCityViewController.addNewCityViewModel = AddNewCityViewModel(networkService: networkService, dataSaverService: dataSaverService)

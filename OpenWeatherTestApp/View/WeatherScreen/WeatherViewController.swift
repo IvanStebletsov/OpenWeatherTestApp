@@ -32,20 +32,13 @@ class WeatherViewController: UIViewController {
     // MARK: - Life cicle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         makeButtomView()
         makeCopyrightImage()
         makeAddNewCityButton()
         makeNoDataForDisplayImageView()
-        
-        weatherViewModel.fetchData() {
-            DispatchQueue.main.async { [weak self] in
-                self?.swipeCollectionView.reloadData()
-            }
-        }
         makeSwipeCollectionView()
         makeRefreshActivityIndicator()
         addGestureRecognizer()
+        reloadView()
     }
 }

@@ -47,7 +47,10 @@ class NetworkService: Networking {
                 guard let data = data else { return }
                 guard let weather = try? JSONDecoder().decode(Weather.self, from: data) else { return }
                 weatherData.append(weather)
-                completion(weatherData)
+
+                if weatherData.count == citiesIds.count {
+                    completion(weatherData)
+                }
             }).resume()
         }
     }

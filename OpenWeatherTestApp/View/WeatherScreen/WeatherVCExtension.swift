@@ -10,7 +10,6 @@ import UIKit
 
 protocol WeatherViewCintrollerDelegate {
     func reloadView()
-    func deleteSavedCity(at indexPath: IndexPath)
 }
 
 extension WeatherViewController: WeatherViewCintrollerDelegate {
@@ -187,8 +186,6 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
 
     // MARK: - Protocol methods
     @objc func reloadView() {
-        weatherViewModel.checkForNewCities()
-        
         activityIndicatorBackgroundView.isHidden = false
         activityIndicatorView.isHidden = false
         
@@ -198,13 +195,6 @@ extension WeatherViewController: WeatherViewCintrollerDelegate {
                 self?.activityIndicatorBackgroundView.isHidden = true
                 self?.activityIndicatorView.isHidden = true
             }
-        }
-    }
-    
-    func deleteSavedCity(at indexPath: IndexPath) {
-        weatherViewModel.cities.remove(at: indexPath.row)
-        DispatchQueue.main.async { [unowned self] in
-            self.swipeCollectionView.reloadData()
         }
     }
     

@@ -32,16 +32,15 @@ extension EditSavedCitiesViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let cityForDelete = editSavedCitiesViewModel.cities[indexPath.row]
-            let savedCitieas = editSavedCitiesViewModel.dataSaverService.loadSavedCities()
-            let newCitiesIds = savedCitieas.filter() { $0 != cityForDelete.city.id }
+            var allCities = editSavedCitiesViewModel.dataSaverService.loadSavedCities()
+            allCities.removeAll(where: { $0 == cityForDelete.city.id })
             
-            editSavedCitiesViewModel.dataSaverService.saveCities(newCitiesIds)
+            editSavedCitiesViewModel.dataSaverService.saveCities(allCities)
             editSavedCitiesViewModel.cities.remove(at: indexPath.row)
 
             tableView.deleteRows(at: [indexPath], with: .automatic)
 
             unwindEditSavedCitiesVCAndReloadData()
-            delegate?.deleteSavedCity(at: indexPath)
         }
     }
 }

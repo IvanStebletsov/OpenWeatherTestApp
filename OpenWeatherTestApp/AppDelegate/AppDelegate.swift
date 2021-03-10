@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         makeCloudsOnBackground()
         
         let weatherViewModel = WeatherViewModel(networkService: networkService, dataSaverService: dataSaverService)
-        weatherViewModel.citiesIds = setupPredefinedCities()
+        setupPredefinedCities()
         
         let weatherViewController = WeatherViewController()
         weatherViewController.weatherViewModel = weatherViewModel
@@ -38,27 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) { }
-
-    func applicationDidEnterBackground(_ application: UIApplication) { }
-
-    func applicationWillEnterForeground(_ application: UIApplication) { }
-
-    func applicationDidBecomeActive(_ application: UIApplication) { }
-
-    func applicationWillTerminate(_ application: UIApplication) { }
-    
     
     // Setup predifined cities
-    func setupPredefinedCities() -> [Int] {
+    func setupPredefinedCities() {
         isCitiesPredefined = UserDefaults.standard.bool(forKey: "isCitiesPredefined")
         if !isCitiesPredefined {
             isCitiesPredefined = true
             UserDefaults.standard.set(isCitiesPredefined, forKey: "isCitiesPredefined")
             dataSaverService.savePredefinedCities()
-            return dataSaverService.loadPredefinedCities()
-        } else {
-            return dataSaverService.loadSavedCities()
         }
     }
     
